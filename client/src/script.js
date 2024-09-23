@@ -46,5 +46,5 @@ function processPrediction(score){
     else{
         prediction = 'dog'
     }
-    alert(`It is a ${prediction}`)
+    alert(`This is a ${prediction}`)
 }
