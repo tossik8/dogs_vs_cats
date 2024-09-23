@@ -8,7 +8,8 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
-model = tf.keras.models.load_model('../model.keras')
+base_dir = os.path.dirname(os.path.abspath(__file__))
+model = tf.keras.models.load_model(os.path.join(base_dir, '..', 'model.keras'))
 allowed_origins = os.getenv('ALLOWED_ORIGINS').split(',')
 
 app = FastAPI()
