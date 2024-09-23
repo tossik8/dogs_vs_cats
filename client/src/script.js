@@ -5,8 +5,7 @@ window.onload = () => {
         const file = e.target.files[0]
         if (!file){
             document.getElementById('image').src = '../images/default image.jpg'
-            document.getElementById('prediction').textContent = ''
-            uploadedImage = null;
+            uploadedImage = null
             return
         }
         uploadedImage = file
