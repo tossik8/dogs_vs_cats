@@ -15,7 +15,8 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins
+    allow_origins=allowed_origins,
+    allow_methods=["POST", "OPTIONS"]
 )
 
 @app.post("/images")
