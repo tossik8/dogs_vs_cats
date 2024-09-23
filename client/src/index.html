@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dogs vs Cats</title>
+    <link rel="stylesheet" href="./styles.css"/>
+    <link rel="stylesheet" href="./light.css"/>
+    <script src="./script.js"></script>
+</head>
+<body>
+    <main>
+        <div>
+            <h1>Dogs vs Cats Classification</h1>
+            <h2>How it works</h2>
+            <ol>
+                <li>Upload an image of a dog or a cat</li>
+                <li>Click 'Classify'</li>
+                <li>Check out the prediction of a neural network</li>
+            </ol>
+        </div>
+        <img id="image" src="../images/default image.jpg"/>
+        <form id="image-form">
+            <input type="file" id="image-input" accept="image/png, image/jpeg">
+            <button type="submit">Classify</button>
+        </form>
+    </main>
+    <footer>
+        <p>To view the neural network and its training process, click
+        <a target="_blank" href="https://www.kaggle.com/code/tossik/dogs-vs-cats">here</a>.</p>
+    </footer>
+</body>
+</html>
