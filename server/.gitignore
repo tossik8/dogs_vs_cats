@@ -1,3 +1,7 @@
 /venv
 /src/__pycache__
 .env
+.dockerignore
+compose.yaml
+Dockerfile
+README.Docker.md
