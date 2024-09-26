@@ -12,6 +12,7 @@ function uploadImage(e){
     const file = e.target.files[0]
     if (!file){
         document.getElementById('image').src = '../images/default image.jpg'
+        hideElements(['prediction-container'])
         uploadedImage = null
         return
     }
@@ -19,6 +20,7 @@ function uploadImage(e){
     const reader = new FileReader()
     reader.onload = (e) => {
         document.getElementById('image').src = e.target.result
+        hideElements(['prediction-container'])
     }
     reader.readAsDataURL(uploadedImage)
 }
@@ -30,8 +32,7 @@ async function submitForm(e){
     }
     const formData = new FormData()
     formData.append('image', uploadedImage)
-    document.getElementsByClassName('loader-background')[0].classList.remove('hidden')
-    document.getElementsByClassName('loader')[0].classList.remove('hidden')
+    showElements(['loader-background', 'loader'])
     const response = await fetch(
         'http://localhost:8000/images',
         {
@@ -40,8 +41,7 @@ async function submitForm(e){
         }
     )
     const score = await response.json()
-    document.getElementsByClassName('loader-background')[0].classList.add('hidden')
-    document.getElementsByClassName('loader')[0].classList.add('hidden')
+    hideElements(['loader-background', 'loader'])
     processPrediction(score)
 }
 
@@ -54,5 +54,18 @@ function processPrediction(score){
     else{
         prediction = 'dog'
     }
-    alert(`This is a ${prediction}`)
+    document.getElementById('prediction').innerHTML = `This is a <span>${prediction}</span>!`
+    showElements(['prediction-container'])
+}
+
+function hideElements(elements){
+    for(let element of elements){
+        document.getElementById(element).classList.add('hidden')
+    }
+}
+
+function showElements(elements){
+    for(let element of elements){
+        document.getElementById(element).classList.remove('hidden')
+    }
 }

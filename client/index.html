@@ -25,9 +25,12 @@
             <input type="file" id="image-input" accept="image/png, image/jpeg">
             <button type="submit">Classify</button>
         </form>
+        <section id="prediction-container" class="hidden">
+            <p id="prediction"></p>
+        </section>
     </main>
-    <div class="loader-background hidden"></div>
-    <span class="loader hidden"></span>
+    <div id="loader-background" class="loader-background hidden"></div>
+    <span id="loader" class="loader hidden"></span>
     <footer>
         <p>To view the neural network and its training process, click
         <a target="_blank" href="https://www.kaggle.com/code/tossik/dogs-vs-cats">here</a>.</p>
