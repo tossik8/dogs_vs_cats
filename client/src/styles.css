@@ -60,10 +60,6 @@ button:hover{
     filter: brightness(1.1);
 }
 
-#prediction{
-    display: block;
-}
-
 footer{
     text-align: center;
 }

@@ -24,14 +24,18 @@ window.onload = () => {
         }
         const formData = new FormData()
         formData.append('image', uploadedImage)
+        document.getElementsByClassName('loader-background')[0].classList.remove('hidden')
+        document.getElementsByClassName('loader')[0].classList.remove('hidden')
         const response = await fetch(
-            'https://server-eubfb5hzdabsduh4.germanywestcentral-01.azurewebsites.net/images',
+            'http://localhost:8000/images',
             {
                 method: 'POST',
                 body: formData
             }
         )
         const score = await response.json()
+        document.getElementsByClassName('loader-background')[0].classList.add('hidden')
+        document.getElementsByClassName('loader')[0].classList.add('hidden')
         processPrediction(score)
     })
 }
