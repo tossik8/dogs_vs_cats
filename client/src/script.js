@@ -1,43 +1,48 @@
+let uploadedImage
+
 window.onload = () => {
     const imageInput = document.getElementById('image-input')
-    let uploadedImage
-    imageInput.addEventListener('change', (e) => {
-        const file = e.target.files[0]
-        if (!file){
-            document.getElementById('image').src = '../images/default image.jpg'
-            uploadedImage = null
-            return
-        }
-        uploadedImage = file
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            document.getElementById('image').src = e.target.result
-        }
-        reader.readAsDataURL(uploadedImage)
-    })
+    imageInput.addEventListener('change', (e) => uploadImage(e))
 
     const imageForm = document.getElementById('image-form')
-    imageForm.addEventListener('submit', async (e) => {
-        e.preventDefault()
-        if(!uploadedImage){
-            return
+    imageForm.addEventListener('submit', (e) => submitForm(e))
+}
+
+function uploadImage(e){
+    const file = e.target.files[0]
+    if (!file){
+        document.getElementById('image').src = '../images/default image.jpg'
+        uploadedImage = null
+        return
+    }
+    uploadedImage = file
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        document.getElementById('image').src = e.target.result
+    }
+    reader.readAsDataURL(uploadedImage)
+}
+
+async function submitForm(e){
+    e.preventDefault()
+    if(!uploadedImage){
+        return
+    }
+    const formData = new FormData()
+    formData.append('image', uploadedImage)
+    document.getElementsByClassName('loader-background')[0].classList.remove('hidden')
+    document.getElementsByClassName('loader')[0].classList.remove('hidden')
+    const response = await fetch(
+        'http://localhost:8000/images',
+        {
+            method: 'POST',
+            body: formData
         }
-        const formData = new FormData()
-        formData.append('image', uploadedImage)
-        document.getElementsByClassName('loader-background')[0].classList.remove('hidden')
-        document.getElementsByClassName('loader')[0].classList.remove('hidden')
-        const response = await fetch(
-            'http://localhost:8000/images',
-            {
-                method: 'POST',
-                body: formData
-            }
-        )
-        const score = await response.json()
-        document.getElementsByClassName('loader-background')[0].classList.add('hidden')
-        document.getElementsByClassName('loader')[0].classList.add('hidden')
-        processPrediction(score)
-    })
+    )
+    const score = await response.json()
+    document.getElementsByClassName('loader-background')[0].classList.add('hidden')
+    document.getElementsByClassName('loader')[0].classList.add('hidden')
+    processPrediction(score)
 }
 
 function processPrediction(score){
