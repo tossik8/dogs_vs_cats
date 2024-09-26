@@ -25,7 +25,7 @@ window.onload = () => {
         const formData = new FormData()
         formData.append('image', uploadedImage)
         const response = await fetch(
-            'https://dogs-vs-cats-z7qe.onrender.com/images',
+            'https://server-eubfb5hzdabsduh4.germanywestcentral-01.azurewebsites.net/images',
             {
                 method: 'POST',
                 body: formData
