@@ -12,7 +12,7 @@ function uploadImage(e){
     const file = e.target.files[0]
     if (!file){
         document.getElementById('image').src = '../images/default image.jpg'
-        hideElements(['prediction-container'])
+        removeDisplay(['prediction-container'])
         uploadedImage = null
         return
     }
@@ -20,7 +20,7 @@ function uploadImage(e){
     const reader = new FileReader()
     reader.onload = (e) => {
         document.getElementById('image').src = e.target.result
-        hideElements(['prediction-container'])
+        removeDisplay(['prediction-container'])
     }
     reader.readAsDataURL(uploadedImage)
 }
@@ -32,16 +32,16 @@ async function submitForm(e){
     }
     const formData = new FormData()
     formData.append('image', uploadedImage)
-    showElements(['loader-background', 'loader'])
+    addDisplay(['loader-background', 'loader'])
     const response = await fetch(
-        'http://localhost:8000/images',
+        'https://server-eubfb5hzdabsduh4.germanywestcentral-01.azurewebsites.net/images',
         {
             method: 'POST',
             body: formData
         }
     )
     const score = await response.json()
-    hideElements(['loader-background', 'loader'])
+    removeDisplay(['loader-background', 'loader'])
     processPrediction(score)
 }
 
@@ -55,17 +55,17 @@ function processPrediction(score){
         prediction = 'dog'
     }
     document.getElementById('prediction').innerHTML = `This is a <span>${prediction}</span>!`
-    showElements(['prediction-container'])
+    addDisplay(['prediction-container'])
 }
 
-function hideElements(elements){
+function removeDisplay(elements){
     for(let element of elements){
-        document.getElementById(element).classList.add('hidden')
+        document.getElementById(element).classList.add('no-display')
     }
 }
 
-function showElements(elements){
+function addDisplay(elements){
     for(let element of elements){
-        document.getElementById(element).classList.remove('hidden')
+        document.getElementById(element).classList.remove('no-display')
     }
 }
